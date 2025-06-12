@@ -47,7 +47,21 @@
     if (correspondingCheckboxM) {
       correspondingCheckboxM.checked = anyChecked && !noneChecked;
     }
-  }
+
+  // ✅ New logic: Combine questionB and questionD → update questionL
+  const selectedA = Array.from(document.querySelectorAll('input[name="questionA"]:checked')).map(cb => cb.value);
+  const selectedB = Array.from(document.querySelectorAll('input[name="questionB"]:checked')).map(cb => cb.value);
+  const selectedC = Array.from(document.querySelectorAll('input[name="questionC"]:checked')).map(cb => cb.value);
+  const selectedD = Array.from(document.querySelectorAll('input[name="questionD"]:checked')).map(cb => cb.value);
+  const selectedE = Array.from(document.querySelectorAll('input[name="questionE"]:checked')).map(cb => cb.value);
+  const combined = [...new Set([...selectedA, ...selectedB, ...selectedC, ...selectedD, ...selectedE])]; // merge and deduplicate
+
+  const questionLBoxes = document.querySelectorAll('input[name="questionL"]');
+  questionLBoxes.forEach(cb => {
+    cb.checked = combined.includes(cb.value);
+  });
+}
+
 
   </script>
 </head>
